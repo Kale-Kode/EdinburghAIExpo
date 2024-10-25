@@ -20,3 +20,5 @@ assert (
     tgt_text[0]
     == "California's largest electricity provider has turned off power to hundreds of thousands of customers."
 )
+
+# how to fine tune? Some Trainer class thing idk.
