@@ -1,6 +1,6 @@
 {
-    "name": "Hello Extensions",
-    "description": "Base Level Extension",
+    "name": "Summify",
+    "description": "Summify v1",
     "version": "1.0",
     "manifest_version": 3,
     "action": {
