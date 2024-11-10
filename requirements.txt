@@ -1,0 +1,8 @@
+Flask==3.0.3
+huggingface-hub==0.25.2
+semantic-text-splitter==0.18.1
+sentencepiece==0.2.0
+tokenizers==0.20.1
+torch==2.4.1
+transformers==4.46.0
+youtube-transcript-api==0.6.2
