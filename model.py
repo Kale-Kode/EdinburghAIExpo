@@ -63,9 +63,17 @@ def summarise_chunks(chunks):
     batch = tokenizer(chunk, truncation=True, padding="longest", return_tensors="pt").to(device)
     translated = model.generate(**batch)
     summary = tokenizer.batch_decode(translated, skip_special_tokens=True)
-    full_summary[timestamp] = summary
-    #print(f"Chunk {i}: {chunk}\nSummary: {summary}")
-  return full_summary # returns a dictionary of chunks and their start timestamp
+  
+    title_batch = tokenizer(chunk, truncation=True, padding="longest", return_tensors="pt").to(device)
+    title_translated = model.generate(**title_batch, max_length=20, num_beams=5, early_stopping=True)
+    title = tokenizer.batch_decode(title_translated, skip_special_tokens=True)[0]
+
+    full_summary[timestamp] = {
+            "title": title,
+            "summary": summary
+        }
+    
+  return full_summary # returns a dictionary of chunks, with their title and summary text mapped to their starting timestamp
 
 
 # DEFINE ENDPOINTS
