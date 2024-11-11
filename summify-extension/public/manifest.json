@@ -1,0 +1,11 @@
+{
+    "name": "Summify",
+    "description": "Summify v1",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+      "default_popup": "index.html",
+      "default_icon": "summify.png"
+    },
+    "permissions": ["tabs"]
+  }
