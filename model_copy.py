@@ -6,10 +6,6 @@ from tokenizers import Tokenizer
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-# FLASK APP
-app = Flask(__name__)
-CORS(app)
-
 # LOAD PEGASUS MODEL OUTSIDE THE ENDPOINTS
 model_name = "google/pegasus-xsum"
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -84,23 +80,12 @@ def summarise_chunks(chunks):
   return full_summary
 
 # DEFINE ENDPOINTS
-@app.route('/summarise', methods=['POST'])
-def summarise():
-  data = request.json
-  print("Received data:", data)  # Debugging line
-  url = data.get("video_url")
-  if not url:
-        return jsonify({"error": "URL is required"}), 400
+def summarise(url):
   
   transcript = extract_transcript(url) # Extract transcript and summarize
-  if not transcript:
-      return jsonify({"error": "Transcript not found"}), 404
-
   chunks = split_into_chunks(transcript)
   chunks = timestamp_chunks(chunks, transcript)
   summary = summarise_chunks(chunks)
-  return jsonify({"summary": summary})
+  print(summary)
 
-# MAIN
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+summarise('https://www.youtube.com/watch?v=h6skw_h7Wg8')

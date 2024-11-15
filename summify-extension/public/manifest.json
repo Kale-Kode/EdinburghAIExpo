@@ -7,5 +7,12 @@
       "default_popup": "index.html",
       "default_icon": "summify.png"
     },
-    "permissions": ["tabs", "activeTab", "scripting"]
+    "permissions": ["tabs", "activeTab", "scripting"],
+    "content_scripts": [
+      {
+        "matches": ["*://www.youtube.com/*", "*://youtube.com/*"],
+        "js": ["content.js"],
+        "run_at": "document_end"
+      }
+    ]
   }

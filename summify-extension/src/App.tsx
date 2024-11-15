@@ -1,5 +1,3 @@
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import { useEffect, useState } from 'react';
 import './App.css'
 import SummaryBlock from './components/summaryBlock';
@@ -10,6 +8,7 @@ import Loading from './assets/loading.json'
 interface SummaryItem {
   title: string;
   text: string;
+  timestamp: number;
 }
 
 function App() {
@@ -75,7 +74,7 @@ function App() {
     } else {
       // otherwise generate from API
       try {
-        const response = await fetch('http://127.0.0.1:5000/summarise', {
+        const response = await fetch('https://42f3-34-126-173-149.ngrok-free.app/summarise', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -116,10 +115,10 @@ function App() {
   const renderSummary = () => {
     return (
       <>
-        <h1 className=''>Video summary:</h1>
+        <h1 className='text-xl font-semibold mb-4'>Video <span className='bg-gradient-to-r from-purple-500 to-cyan-400 text-transparent bg-clip-text'>summary:</span></h1>
         {
           summary.map((content, i) => {
-            <SummaryBlock title={content.title} text={content.text} key={i}/>
+            return <SummaryBlock title={content.title} text={content.text} timestamp={Math.floor(content.timestamp)} key={i} delay={i}/>
           })
         }
       </>
@@ -133,22 +132,12 @@ function App() {
           renderSummary()
         ) : (
           <div>
-            <h3>Generating summary (please keep this popup open)</h3>
             <Lottie loop={true} animationData={Loading}></Lottie>
           </div>
         )
       ) : (
-        <p>Watch a YouTube video to get a summary.</p>
+        <p>Watch a YouTube video to get a summary!</p>
       )}
-
-      <div className='flex justify-center'>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
     </>
   )
 }
